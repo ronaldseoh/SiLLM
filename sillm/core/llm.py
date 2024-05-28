@@ -333,6 +333,7 @@ class LLM():
                  max_tokens: int = 1024,
                  repetition_penalty: float = None,
                  repetition_window: int = 50,
+                 logprobs: bool = False,
                  flush: int = 5
                  ):
         """
@@ -345,15 +346,14 @@ class LLM():
         Yields:
             Tuple of generated text and metadata.
         """
-        yield from generate(self.model, self.tokenizer, prompt=prompt, temperature=temperature, repetition_penalty=repetition_penalty, repetition_window=repetition_window, max_tokens=max_tokens, flush=flush)
+        yield from generate(self.model, self.tokenizer, prompt=prompt, temperature=temperature, repetition_penalty=repetition_penalty, repetition_window=repetition_window, max_tokens=max_tokens, logprobs=logprobs, flush=flush)
 
     def completion(self,
                    prompt: str,
                    temperature: float = 0.0,
                    repetition_penalty: float = None,
                    repetition_window: int = 25,
-                   max_tokens: int = 1024,
-                   logprobs: bool = False
+                   max_tokens: int = 1024
                    ) -> str:
         """
         Generate a completion and wait for all tokens.
@@ -364,7 +364,7 @@ class LLM():
         Returns:
             Generated completion.
         """
-        return ''.join([t[0] for t in generate(self.model, self.tokenizer, prompt=prompt, temperature=temperature, repetition_penalty=repetition_penalty, repetition_window=repetition_window, max_tokens=max_tokens, logprobs=logprobs)])
+        return ''.join([t[0] for t in generate(self.model, self.tokenizer, prompt=prompt, temperature=temperature, repetition_penalty=repetition_penalty, repetition_window=repetition_window, max_tokens=max_tokens)])
 
 def generate(model,
              tokenizer: Tokenizer,
