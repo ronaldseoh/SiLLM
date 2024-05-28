@@ -352,7 +352,8 @@ class LLM():
                    temperature: float = 0.0,
                    repetition_penalty: float = None,
                    repetition_window: int = 25,
-                   max_tokens: int = 1024
+                   max_tokens: int = 1024,
+                   logprobs: bool = False
                    ) -> str:
         """
         Generate a completion and wait for all tokens.
@@ -363,7 +364,7 @@ class LLM():
         Returns:
             Generated completion.
         """
-        return ''.join([t[0] for t in generate(self.model, self.tokenizer, prompt=prompt, temperature=temperature, repetition_penalty=repetition_penalty, repetition_window=repetition_window, max_tokens=max_tokens)])
+        return ''.join([t[0] for t in generate(self.model, self.tokenizer, prompt=prompt, temperature=temperature, repetition_penalty=repetition_penalty, repetition_window=repetition_window, max_tokens=max_tokens, logprobs=logprobs)])
 
 def generate(model,
              tokenizer: Tokenizer,
